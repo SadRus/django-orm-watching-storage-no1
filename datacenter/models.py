@@ -1,7 +1,3 @@
-import datetime
-
-from datetime import datetime
-
 from django.db import models
 from django.utils.timezone import localtime
 
@@ -41,15 +37,10 @@ def format_duration(duration):
     return f'{hours}:{minutes}'
 
 def get_duration(visit):
-    utczone = visit.entered_at.tzinfo
-    enter_time = visit.entered_at.timestamp()
-    if visit.leaved_at:
-        leaved_time = visit.leaved_at.timestamp()
-        duration = leaved_time - enter_time
-    else:
-        now = utczone.localize(datetime.now()).timestamp()
-        duration = now - enter_time
-    return duration
+    entered_time = localtime(visit.entered_at)
+    leaved_time = localtime(visit.leaved_at)
+    duration = leaved_time - entered_time
+    return duration.total_seconds()
 
 def is_visit_long(visit, minutes=60):
     return get_duration(visit) > minutes*60
