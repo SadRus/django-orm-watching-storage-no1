@@ -1,5 +1,10 @@
 import os
 
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 DATABASES = {
     'default': {
@@ -8,15 +13,15 @@ DATABASES = {
         'PORT': '5434',
         'NAME': 'checkpoint',
         'USER': 'guard',
-        'PASSWORD': os.environ['DB_PASSWORD'],
+        'PASSWORD': env.str('DB_PASSWORD'),
     }
 }
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env.str('SECRET_KEY')
 
-DEBUG = True
+DEBUG = env.bool('DEBUG', False)
 
 ROOT_URLCONF = 'project.urls'
 

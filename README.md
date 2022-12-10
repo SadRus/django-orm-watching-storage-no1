@@ -16,6 +16,12 @@ Use `pip` (or `pip3`) for install requirements:
 pip install -r requirements.txt
 ```
 
+### Enviroment
+
+DB_PASSWORD - database password  
+SECRET_KEY - secret key  
+DEBUG - debug mode  
+
 ### Usage
 
 From root project folder:
